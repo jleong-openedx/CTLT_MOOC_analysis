@@ -5,3 +5,9 @@ Your credentials need to reside in CTLT_MOOC_analysis/metric (.json and .dat fil
 0 12 * * * cd /home/yourdirectory/; source .bashrc; cd /home/yourdirectory/CTLT_MOOC_analysis/metric/; /home/yourdirectory/anaconda2/bin/jupyter nbconvert --execute example-master-notebook.ipynb --ExecutePreprocessor.kernel_name=python --ExecutePreprocessor.timeout=-1
 
 The .ipynb files will be generated in /home/yourdirectory/CTLT_MOOC_analysis/metric/assets.
+
+To generate the .html files, set up another cronjob:
+
+0 1 * * * /bin/bash /home/yourdirectory/CTLT_MOOC_analysis/metric/assets/export.sh
+
+The .html files will be generated in /home/yourdirectory/CTLT_MOOC_analysis/metric/assets/assets.
