@@ -78,7 +78,7 @@ def run_notebook(notebook_name, nb_suffix='-out', out_path='./assets/', nb_kwarg
         code_cell = '\n'.join((header, code))
 
     nb_name_input = notebook_name + '.ipynb'
-    nb_name_output = notebook_name + '%s.ipynb' % nb_suffix
+    nb_name_output = '%s.ipynb' % nb_suffix
     nb_name_output = os.path.join(out_path, nb_name_output)
     display(FileLink(nb_name_input))
 
