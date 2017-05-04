@@ -89,22 +89,5 @@ def run_notebook(notebook_name, nb_suffix='-out', out_path='./assets/', nb_kwarg
     if len(nb_kwargs) > 0:
         nb['cells'].insert(1, nbformat.v4.new_code_cell(code_cell))
 
-    start_time = time.time()
-    try:
-        # Execute the notebook
-        ep.preprocess(nb, {'metadata': {'path': './'}})
-    except:
-        # Execution failed, print a message then raise.
-        msg = 'Error executing the notebook "%s".\n\n' % notebook_name
-        msg += 'See notebook "%s" for the traceback.' % nb_name_output
-        print(msg)
-        raise
-    else:
-        # On successful execution, add timestamping cell
-        duration = time.time() - start_time
-        timestamp_cell = timestamp_cell % (time.ctime(start_time), duration)
-        nb['cells'].insert(0, nbformat.v4.new_markdown_cell(timestamp_cell))
-    finally:
-        # Save the notebook even when it raises an error
-        nbformat.write(nb, nb_name_output)
-        display(FileLink(nb_name_output))
+    nbformat.write(nb, nb_name_output)
+    display(FileLink(nb_name_output))
