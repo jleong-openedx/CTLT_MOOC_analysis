@@ -27,7 +27,7 @@ For Key type, select the JSON key option, then select Create. The file automatic
 Put the *.json file you just downloaded in a directory of your choosing. This directory must be private (you can't let anyone get access to this), but accessible to your web server code.
 Set the environment variable GOOGLE_APPLICATION_CREDENTIALS to the path of the JSON file downloaded."
 
-4. With the credentials in place, set automated dashboards generation:
+4. With the credentials in place, change "yourdirectory" in generate.sh and below to the appropriate path(s) and set automated dashboards generation:
 
 25 10 * * * /bin/bash /home/yourdirectory/CTLT_MOOC_analysis/metric/generate.sh
 
