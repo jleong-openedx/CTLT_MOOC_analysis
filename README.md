@@ -1,47 +1,36 @@
 ## Work summary
 
-- [Course metrics dashboard](https://github.com/nilichen/CTLT/tree/master/metric):
+- [Course metrics dashboard](https://github.com/jleong-openedx/CTLT/tree/master/metric):
   - Develop metrics and visualizations to present and compare
     - course structure,
     - enrollment and retention,
-    - students’ engagement and learning pattern etc.
-    for edX instructors and administrators
+    - students’ engagement and learning patterns etc. for edX instructors and administrators
   - Streamline and automate the process of data import, data munging and visualization in creating dashboards for various courses
 
+- Setup:
 
-- Customized reports:
-  - [Automated](https://github.com/nilichen/CTLT/tree/master/reports)
-    - Daily reports for enrollment, unenrollment and verification
-    - Weekly reports for students’ activity: nactive, nvideo_views, nproblem_attempts, nforum_posts
-    - Weekly report for up-to-date # of registration, verification and revenue
-  - [Mobile analysis](https://github.com/nilichen/CTLT_MOOC_analysis/blob/master/reports/mobile_analysis.ipynb):
-    - % light mobileApp/mobile users and % frequent mobileApp/mobile users by course, age, country and learner type
-  - List of email addresses for all the students enrolled in UBC edX
+1. You need a Google account with Editor access to a BigQuery project. The owner of the account must generate a service account: https://developers.google.com/identity/protocols/OAuth2ServiceAccount.
 
+2. Install Anaconda (tested with https://repo.continuum.io/archive/Anaconda2-4.1.1-Linux-x86_64.sh). You will also need Python 2.7 (tested with Python 2.7.12) and Plotly 2.0.0.
 
-- Research analysis:
-  -	[Forum analysis](https://github.com/nilichen/CTLT_MOOC_analysis/tree/master/Climate/forum):
-  Analyze and compare students’ participation in the forum for 3 iterations of Climate after changing the way TAs are involved in the discussion
-  -	[Map assignments](https://github.com/nilichen/CTLT_MOOC_analysis/tree/master/Climate/map_assignment) – before and after analysis:
-    - After assigning students into regional and global for map assignment, analyze and compare students’ engagement before and after finishing the first map assignment.
-  -	[Survey analysis](https://github.com/nilichen/CTLT_MOOC_analysis/blob/master/metric/survey.ipynb) (currently excluded from course metrics dashboard due to lack of data for all the courses):
-    -	main reasons taking the course
-    -	if goals are met
-    -	which components are satisfied
-    -	likely to recommend
+3. Sign into the/a Google account with Editor access to the BigQuery project. The credentials file should be automatically downloaded (bigquery_credentials.dat).
 
+Alternatively, you can avoid signing in by instead using Application Default Credentials:
 
-- Data export and preparation for instructors: 10%
-  -	PHYS100-98a and UseGen: PI data export and analysis
-  -	PSYC101: Data export and mapping
-  -	Phot1x and CPSC110: Forum data
-  -	CPSC210: Problems attempts for each student
+https://developers.google.com/identity/protocols/application-default-credentials
 
+"Go to the API Console Credentials page.
+From the project drop-down, select your project.
+On the Credentials page, select the Create credentials drop-down, then select Service account key.
+From the Service account drop-down, select an existing service account or create a new one.
+For Key type, select the JSON key option, then select Create. The file automatically downloads to your computer.
+Put the *.json file you just downloaded in a directory of your choosing. This directory must be private (you can't let anyone get access to this), but accessible to your web server code.
+Set the environment variable GOOGLE_APPLICATION_CREDENTIALS to the path of the JSON file downloaded."
 
-- [edx2bigquery](https://github.com/nilichen/edx2bigquery):
-  -	Maintain the pipeline transforming and converting unstructured data from edX to structured data in Google Bigquery
+4. With the credentials in place, set automated dashboards generation:
 
+25 10 * * * /bin/bash /home/yourdirectory/CTLT_MOOC_analysis/metric/generate.sh
 
-- A4L:
-  -	Data validation and verification
-  -	Create baseline reports for evaluation of A4L
+The .html files will be generated in /home/yourdirectory/CTLT_MOOC_analysis/metric/; one .html file will be generated per course specified in generate.sh.
+
+Two other pages will also be generated: multi_courses_all.html and multi_courses_current.html. These are dashboards representing all courses, and those currently running, respectively. Course lists for these dashboards are specified in multi_courses_all.ipynb and multi_courses_current.ipynb.
